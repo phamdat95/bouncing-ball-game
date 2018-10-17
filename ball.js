@@ -37,10 +37,24 @@ var Ball = function (x, y, radius, color,direction, board) {
        if (self.y >= 495 - self.radius && self.x >= self.board.getX()&& self.x <= self.board.getX() + self.board.getLength()){
            self.dy = -self.dy;
        }
-       if (self.y > 510){
+       if (self.y > 500 || self.y >= self.board.getY()){
            alert('you lose, please press f5 to play again!')
        }
        self.x += self.dx;
        self.y += self.dy;
+    };
+    self.checkCollision = function () {
+        var brick = null;
+        self.board.getBrick().forEach(function (paddle) {
+            var distanceX = Math.abs((self.x + 5) - (paddle.getX() + 25));
+            var distanceY = Math.abs((self.y + 5) - (paddle.getY() + 10));
+            if(distanceX < (10 + 50)/2 && distanceY < (10 + 20)/2){
+                brick = paddle;
+                self.dy = -self.dy;
+            }
+        });
+        if(brick !== null){
+            self.board.removeBrick(brick);
+        }
     };
 };
