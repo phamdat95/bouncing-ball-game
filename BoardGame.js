@@ -32,8 +32,8 @@ var BoardGame = function (canvas) {
     };
     self.move = function () {
         setInterval(function () {
-            self.ball.render();
             self.ball.move();
+            self.render();
         },50);
     }
 };
